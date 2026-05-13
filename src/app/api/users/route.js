@@ -2,6 +2,7 @@ import clientPromise from "@/lib/mongodb"
 import { NextResponse } from "next/server"
 import bcrypt from 'bcrypt'
 
+// get all users api 
 export const GET = async () => {
     try {
         const client = await clientPromise
