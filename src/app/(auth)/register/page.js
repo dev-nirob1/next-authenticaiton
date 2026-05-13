@@ -1,11 +1,33 @@
+'use client'
 import Link from 'next/link';
 import React from 'react';
+const handleSignup = async (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const name = formData.get('name')
+    const email = formData.get('email')
+    const password = formData.get('password')
+    try { 
+        const res = await fetch('http://localhost:3000/api/users',{
+            method: 'POST',
+            'Content-Type': 'application/json',
+            body: JSON.stringify({ name, email, password })
+        })
+        const data = await res.json()
+        if(data.insertedId){
+            alert('User created successfully')
+        }
+    } catch (err) {
+        console.log(err.message);
+    }
+
+}
 
 const Register = () => {
     return (
         <div className="min-h-screen flex items-center justify-center">
             <div className="max-w-xl mx-auto p-4 space-y-4 border">
-                <form>
+                <form onSubmit={handleSignup}>
                     <div>
                         <label htmlFor="name">Name:</label>
                         <input className='block p-2 border' type="text" id="name" name="name" placeholder='Enter Your Name' />

@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 export const GET = async () => {
     try {
         const client = await clientPromise
-        const db = client.db()
+        const db = client.db('next-auth')
         const users = await db.collection('users').find({}).toArray()
         return NextResponse.json({ message: 'Users fetched successfully', users }, { status: 200 })
     }
@@ -20,7 +20,7 @@ export const POST = async (request) => {
     try {
         // step-1: connect to mongodb
         const client = await clientPromise
-        const db = client.db()
+        const db = client.db('next-auth')
         // step-2: get data from request body
         const { name, email, password } = await request.json()
         // step-3: validate data
