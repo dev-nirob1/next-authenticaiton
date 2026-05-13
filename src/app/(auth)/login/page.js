@@ -1,11 +1,35 @@
+'use client';
 import Link from 'next/link';
 import React from 'react';
 
 const Login = () => {
+    const handleSignIn = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        try {
+            const res = await fetch('http://localhost:3000/api/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                }   ,
+                body: JSON.stringify({ email, password })
+            })
+            const data = await res.json();
+            if(data.user){
+                alert(data.message)
+            }else{
+                alert(data.message)
+            }
+        } catch (error) {
+            console.error('Error signing in:', error.message);
+        }
+    }
     return (
         <div className="min-h-screen flex items-center justify-center">
             <div className="max-w-xl mx-auto p-4 space-y-4 border">
-                <form>
+                <form onSubmit={handleSignIn}>
                     <div>
                         <label htmlFor="email">Email:</label>
                         <input className='block p-2 border' type="email" id="email" name="email" placeholder='Enter Your Email' />

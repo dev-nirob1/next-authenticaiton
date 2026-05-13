@@ -7,14 +7,16 @@ const handleSignup = async (e) => {
     const name = formData.get('name')
     const email = formData.get('email')
     const password = formData.get('password')
-    try { 
-        const res = await fetch('http://localhost:3000/api/users',{
+    try {
+        const res = await fetch('http://localhost:3000/api/users', {
             method: 'POST',
-            'Content-Type': 'application/json',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ name, email, password })
         })
         const data = await res.json()
-        if(data.insertedId){
+        if (data.insertedId) {
             alert('User created successfully')
         }
     } catch (err) {
