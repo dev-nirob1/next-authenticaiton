@@ -30,7 +30,7 @@ export const POST = async (request) => {
         }
         // step-8: generate JWT token
         const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        console.log('jwt', token);
+        // console.log('jwt', token);
         // step-9: return success response with user info and token (exclude password)
         const userInfo = { name: user.name, email: user.email, userId: user._id }
 
