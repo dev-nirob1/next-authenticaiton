@@ -1,76 +1,83 @@
-'use client';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+"use client";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "@/provider/AuthProvider";
 
 const Navbar = () => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const { user, loading, setUser } = useAuth();
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                setLoading(true);
+  // console.log('user', user)
+  // console.log('loading', loading)
 
-                const res = await fetch('/api/me', {
-                    credentials: 'include'
-                });
+  // const [user, setUser] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // console.log(user);
 
-                const data = await res.json();
+  // useEffect(() => {
+  //     const fetchUser = async () => {
+  //         try {
+  //             setLoading(true);
 
-                setUser(data?.user || null);
+  //             const res = await fetch('/api/me', {
+  //                 credentials: 'include'
+  //             });
 
-                console.log(data?.user); // correct place to log
-            } catch (err) {
-                console.log(err.message);
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        };
+  //             const data = await res.json();
+  //             const loggedUser = data?.user || null;
+  //             setUser(loggedUser);
 
-        fetchUser();
-    }, []);
+  //             console.log(loggedUser); // correct place to log
+  //         } catch (err) {
+  //             console.log(err.message);
+  //             setUser(null);
+  //         } finally {
+  //             setLoading(false);
+  //         }
+  //     };
 
-    const handleLogout = async () => {
-        try {
-            await fetch('/api/logout', {
-                credentials: 'include',
-                method: 'POST'
-            });
+  //     fetchUser();
+  // }, []);
 
-            setUser(null);
-        } catch (err) {
-            console.log(err.message);
-        }
-    };
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/logout", {
+        credentials: "include",
+        method: "POST",
+      });
 
-    if (loading) {
-        return <div>Loading...</div>;
+      setUser(null);
+    } catch (err) {
+      console.log(err.message);
     }
+  };
+  // const handleLogout = ()=> {
+  //     console.log('logout success');
+  // }
 
-    return (
-        <div>
-            <div className="flex justify-between">
-                <div className="text-2xl font-bold">NestAuth</div>
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-                <div className="space-x-4">
-                    <Link href="/login">Login</Link>
-                    <Link href="/register">Register</Link>
+  return (
+    <div>
+      <div className="flex justify-between">
+        <div className="text-2xl font-bold">NestAuth</div>
 
-                    {user && (
-                        <button onClick={handleLogout}>
-                            Logout
-                        </button>
-                    )}
+        <div className="space-x-4">
+          <Link href="/">Home</Link>
+          <Link href="/login">Login</Link>
+          <Link href="/register">Register</Link>
 
-                    <div>
-                        user: {user?.userId}
-                        email: {user?.email}
-                    </div>
-                </div>
-            </div>
+          {user && <button onClick={handleLogout}>Logout</button>}
+
+          <div>
+            user: {user?.userId}
+            email: {user?.email}
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;
