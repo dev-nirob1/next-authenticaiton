@@ -19,7 +19,7 @@ export const POST = async (request) => {
     const expires = new Date(Date.now() + 3600000); //add token expires in 1 hour
     await db.collection('users').updateOne({ email }, { $set: { resetToken: token, resetTokenExpires: expires } });
     // step-5: create a reset link and send it to the user's email (for demonstration, we will just return the reset link in the response)
-    const resetLink = `https://localhost:3000/reset-password?token=${token}`;
+    const resetLink = `http://localhost:3000/reset-password?token=${token}`;
 
     return NextResponse.json({ message: 'Password reset link sent to your email', resetLink }, { status: 200 });
 };
