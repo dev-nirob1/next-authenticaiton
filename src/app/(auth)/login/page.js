@@ -71,6 +71,7 @@ const Login = () => {
             <Link href="/register" className="text-blue-500 hover:underline">
               Sign up
             </Link>
+             <Link href="/forgot-password" className='text-sm text-gray-500 mt-2 block text-center'>Forgot Password?</Link>
           </p>
         </div>
       </div>

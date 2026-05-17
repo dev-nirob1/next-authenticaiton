@@ -43,6 +43,7 @@ const Register = () => {
                         <input className='block p-2 border' type="password" id="password" name="password" placeholder='Enter Your Password' />
                     </div>
                     <button className='cursor-pointer bg-blue-500 text-white p-2 rounded w-full mt-2' type="submit">Register</button>
+                    <Link href="/forgot-password" className='text-sm text-gray-500 mt-2 block text-center'>Forgot Password?</Link>
                 </form>
                 <div>
                     <button className='cursor-pointer bg-red-500 text-white p-2 rounded w-full mt-2'>Google</button>

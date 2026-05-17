@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
             const res = await fetch('/api/me', {
                 credentials: 'include'
             })
-            if(!res.ok) {
+            if (!res.ok) {
                 setUser(null);
                 setLoading(false);
                 return;
